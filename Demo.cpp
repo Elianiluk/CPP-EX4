@@ -20,25 +20,27 @@ int main()
     Node<double> n4(1.5);
     Node<double> n5(1.6);
 
-    std::cout << root_node.get_value() << std::endl;
-    std::cout << tree.print() << std::endl;
+    // std::cout << root_node.get_value() << std::endl;
+    // std::cout << tree.print() << std::endl;
 
     tree.add_sub_node(root_node, n1);
     tree.add_sub_node(root_node, n2);
     tree.add_sub_node(n1, n3);
     tree.add_sub_node(n1, n4);
     tree.add_sub_node(n2, n5);
+
+    tree.print_tree();
    
     n1.print_childs();
 
     if(n1 != n2)
     {
-        std::cout << "n1 != n2" << std::endl;
+        // std::cout << "n1 != n2" << std::endl;
     }
 
     if(n1 == n1)
     {
-        std::cout << "n1 == n1" << std::endl;
+        // std::cout << "n1 == n1" << std::endl;
     }
     // The tree should look like:
     /**
@@ -49,20 +51,30 @@ int main()
      *  1.4  1.5  1.6
      */
 
-    // for (auto node = tree.begin_pre_order(); node != tree.end_pre_order(); ++node)
-    // {
-    //     cout << node->get_value() << endl;
-    // } // prints: 1.1, 1.2, 1.4, 1.5, 1.3, 1.6
+    std::cout << "Pre-order traversal:" << std::endl;
+    int i=1;
+    for (auto it = tree.pre_order_begin(); it != tree.pre_order_end(); ++it)
+    {
+        std::cout << i << std::endl;
+        std::cout << (*it).get_value() << " ";
+        i++;
+    }   
 
-    // for (auto node = tree.begin_post_order(); node != tree.end_post_order(); ++node)
-    // {
-    //     cout << node->get_value() << endl;
-    // } // prints: 1.4, 1.5, 1.2, 1.6, 1.3, 1.1
+    std::cout << std::endl;
 
-    // for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
-    // {
-    //     cout << node->get_value() << endl;
-    // } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
+    std::cout << "In-order traversal:" << std::endl;
+    for (auto it = tree.in_order_begin(); it != tree.in_order_end(); ++it)
+    {
+        std::cout << (*it).get_value() << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Post-order traversal:" << std::endl;
+    for (auto it = tree.post_order_begin(); it != tree.post_order_end(); ++it)
+    {
+        std::cout << (*it).get_value() << " ";
+    }
+    std::cout << std::endl;
 
     // for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
     // {
