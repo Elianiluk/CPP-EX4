@@ -30,15 +30,15 @@ int main()
     tree.add_sub_node(n2, n5);
 
     tree.print_tree();
-   
+
     n1.print_childs();
 
-    if(n1 != n2)
+    if (n1 != n2)
     {
         // std::cout << "n1 != n2" << std::endl;
     }
 
-    if(n1 == n1)
+    if (n1 == n1)
     {
         // std::cout << "n1 == n1" << std::endl;
     }
@@ -52,34 +52,39 @@ int main()
      */
 
     std::cout << "Pre-order traversal:" << std::endl;
-    int i=1;
-    for (auto it = tree.pre_order_begin(); it != tree.pre_order_end(); ++it)
+    for (auto it = tree.begin_pre_order(); it != tree.end_pre_order(); ++it)
     {
-        std::cout << i << std::endl;
         std::cout << (*it).get_value() << " ";
-        i++;
-    }   
-
+    } // prints: 1.1, 1.2, 1.4, 1.5, 1.3, 1.6
     std::cout << std::endl;
 
     std::cout << "In-order traversal:" << std::endl;
-    for (auto it = tree.in_order_begin(); it != tree.in_order_end(); ++it)
+    for (auto it = tree.begin_in_order(); it != tree.end_in_order(); ++it)
     {
-        std::cout << (*it).get_value() << " ";
-    }
+        std::cout << (*it) << " ";
+    } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
     std::cout << std::endl;
 
     std::cout << "Post-order traversal:" << std::endl;
-    for (auto it = tree.post_order_begin(); it != tree.post_order_end(); ++it)
+    for (auto it = tree.begin_post_order(); it != tree.end_post_order(); ++it)
     {
-        std::cout << (*it).get_value() << " ";
-    }
+        std::cout << (*it) << " ";
+    } // prints: 1.4, 1.5, 1.2, 1.6, 1.3, 1.1
     std::cout << std::endl;
 
-    // for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
-    // {
-    //     cout << node->get_value() << endl;
-    // } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    std::cout << "BFS traversal:" << std::endl;
+    for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
+    {
+        cout << node->get_value() << " ";
+    } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    std::cout << std::endl;
+
+    std::cout << "DFS traversal:" << std::endl;
+    for (DFSIterator<double> it = tree.begin_dfs_scan(); it != tree.end_dfs_scan(); ++it)
+    {
+        std::cout << *it << " ";
+    } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
+    std::cout << std::endl;
 
     // for (auto node : tree)
     // {
@@ -96,7 +101,9 @@ int main()
     // three_ary_tree.add_sub_node(n1, n4);
     // three_ary_tree.add_sub_node(n2, n5);
 
-     // The tree should look like:
+    // three_ary_tree.print_tree();
+
+    // The tree should look like:
     /**
      *       root = 1.1
      *     /      |     \

@@ -1,11 +1,13 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -I .
+CXXFLAGS = -std=c++17 -I .
 
 SRCS = Demo.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-tree_example: $(OBJS)
+tree: $(OBJS)
 	$(CXX) -o $@ $^
 
+.PHONY: clean all
+
 clean:
-	rm -f *.o tree_example
+	rm -f *.o tree

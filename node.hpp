@@ -14,18 +14,21 @@ namespace std
 
         T get_value() const { return value; }
 
-        void add_child(Node<T>& child) { children.push_back(child); }
+        void add_child(Node<T> *child) {
+            children.push_back(child);
+        }
+
 
         void print_childs() const
         {
             std::cout << "main is:" << this->value << std::endl;
             for (const auto& child : children)
             {
-                std::cout << "value: " << child.get_value() << std::endl;
+                std::cout << "value: " << child->get_value() << std::endl;
             }
         }
 
-        std::vector<Node<T>>& get_children() { return children; }
+        std::vector<Node<T>*>& get_children() { return children; }
 
         bool operator==(const Node& other) const
         {
@@ -45,7 +48,7 @@ namespace std
 
     private:
         T value;
-        std::vector<Node<T>> children;
+        std::vector<Node<T>*> children;
     };
 }
 
