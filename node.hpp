@@ -12,6 +12,8 @@ namespace std
     public:
         Node(T value) : value(value) {}
 
+        ~Node() { delete this; }
+
         T get_value() const { return value; }
 
         void add_child(Node<T> *child) {
@@ -35,10 +37,16 @@ namespace std
             return value == other.value;
         }
 
-        bool operator!=(const Node& other) const
+        void operator=(const Node& other)
         {
-            return value != other.value;
+            value = other.value;
+            children = other.children;
         }
+
+        // bool operator!=(const Node& other) const
+        // {
+        //     return value != other.value;
+        // }
 
         friend std::ostream& operator<<(std::ostream& os, const Node<T>& node)
         {

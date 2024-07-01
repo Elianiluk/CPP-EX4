@@ -4,6 +4,8 @@
 #include <iostream>
 #include "node.hpp"
 #include "iterators.hpp"
+#include <SFML/Graphics.hpp>
+#include <sstream>
 
 namespace std
 {
@@ -52,6 +54,38 @@ namespace std
             print_subtree(root, "");
         }
 
+        void visualize_tree() const
+        {
+            sf::RenderWindow window(sf::VideoMode(1600, 900), "Tree Visualization");
+
+            sf::Font font;
+            if (!font.loadFromFile("arial.ttf")) // Ensure the font file is in the correct location
+            {
+                std::cerr << "Error loading font\n";
+                return;
+            }
+
+            while (window.isOpen())
+            {
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                }
+
+                window.clear(sf::Color::Black);
+                draw_node(window, root, 800, 50, 200, 100, font);
+                window.display();
+            }
+        }
+
+        friend std::ostream &operator<<(std::ostream &os, const Tree<T, N> &tree)
+        {
+            tree.visualize_tree();
+            return os;
+        }
+
     private:
         Node<T> *root;
 
@@ -69,6 +103,45 @@ namespace std
             {
                 bool is_last = (i == children.size() - 1);
                 print_subtree(children[i], prefix + (is_last ? "└── " : "├── "));
+            }
+        }
+
+        void draw_node(sf::RenderWindow &window, Node<T> *node, int x, int y, int hGap, int vGap, const sf::Font &font) const
+        {
+            if (!node)
+                return;
+
+            sf::CircleShape circle(30);
+            circle.setFillColor(sf::Color::Red);
+            circle.setOutlineColor(sf::Color::Black);
+            circle.setOutlineThickness(2);
+            circle.setPosition(x - 30, y - 30);
+
+            sf::Text text;
+            text.setFont(font);
+            text.setString(to_string(node->get_value()));
+            text.setCharacterSize(15);
+            text.setFillColor(sf::Color::Black);
+            text.setPosition(x - 10, y - 15);
+
+            window.draw(circle);
+            window.draw(text);
+
+            int childY = y + 2*vGap;
+            int childX = x - (node->get_children().size() - 1) * hGap * 2;
+
+            for (auto child : node->get_children())
+            {
+                int newX = childX + hGap;
+
+                sf::Vertex line[] =
+                    {
+                        sf::Vertex(sf::Vector2f(x, y)),
+                        sf::Vertex(sf::Vector2f(newX, childY))};
+
+                window.draw(line, 2, sf::Lines);
+                draw_node(window, child, newX, childY, hGap / 2, vGap, font);
+                childX += hGap;
             }
         }
     };

@@ -1,13 +1,30 @@
-CXX = g++
-CXXFLAGS = -std=c++17 -I .
+# Compiler
+CXX := g++
+# Compiler flags
+CXXFLAGS := -std=c++17 -Wall -Wextra
+# SFML libraries
+SFML_LIBS := -lsfml-graphics -lsfml-window -lsfml-system
+# SFML include directory
+SFML_INCLUDE := -I/path/to/sfml/include
+# SFML library directory
+SFML_LIB_DIR := -L/path/to/sfml/lib
+# Target executable
+TARGET := tree
+# Source files
+SRCS := Demo.cpp Complex.cpp
+# Object files
+OBJS := $(SRCS:.cpp=.o)
 
-SRCS = Demo.cpp
-OBJS = $(SRCS:.cpp=.o)
+# Default target
+all: $(TARGET)
 
-tree: $(OBJS)
-	$(CXX) -o $@ $^
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(SFML_LIB_DIR) $(SFML_LIBS)
 
-.PHONY: clean all
+.cpp.o:
+	$(CXX) $(CXXFLAGS) $(SFML_INCLUDE) -c $< -o $@
 
 clean:
-	rm -f *.o tree
+	rm -f $(OBJS) $(TARGET)
+
+.PHONY: all clean
