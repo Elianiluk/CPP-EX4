@@ -14,30 +14,35 @@ namespace std
 
         ~Node() { delete this; }
 
-        T get_value() const { return value; }
+        T get_value() { return value; }
 
-        void add_child(Node<T> *child) {
+        void add_child(Node<T> *child)
+        {
             children.push_back(child);
         }
-
 
         void print_childs() const
         {
             std::cout << "main is:" << this->value << std::endl;
-            for (const auto& child : children)
+            for (const auto &child : children)
             {
                 std::cout << "value: " << child->get_value() << std::endl;
             }
         }
 
-        std::vector<Node<T>*>& get_children() { return children; }
+        void swap(Node<T> &other)
+        {
+            std::swap(value, other.value);
+        }
 
-        bool operator==(const Node& other) const
+        std::vector<Node<T> *> &get_children() { return children; }
+
+        bool operator==(const Node &other) const
         {
             return value == other.value;
         }
 
-        void operator=(const Node& other)
+        void operator=(const Node &other)
         {
             value = other.value;
             children = other.children;
@@ -48,7 +53,7 @@ namespace std
         //     return value != other.value;
         // }
 
-        friend std::ostream& operator<<(std::ostream& os, const Node<T>& node)
+        friend std::ostream &operator<<(std::ostream &os, const Node<T> &node)
         {
             os << node.get_value();
             return os;
@@ -56,7 +61,7 @@ namespace std
 
     private:
         T value;
-        std::vector<Node<T>*> children;
+        std::vector<Node<T> *> children;
     };
 }
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "node.hpp"
 #include "iterators.hpp"
+// #include "heapify.hpp"
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
@@ -14,6 +15,22 @@ namespace std
     {
     public:
         Tree() : root(nullptr) {}
+
+        ~Tree() { if(root) remove(root); }
+
+        void remove(Node<T> *node)
+        {
+            if(node->get_children().size() == 0)
+            {
+                delete node;
+                return;
+            }
+            for (auto child : node->get_children())
+            {
+                remove(child);
+            }
+            delete node;
+        }
 
         void add_root(Node<T> &root)
         {
@@ -42,6 +59,17 @@ namespace std
         BFSIterator<T> end_bfs_scan() { return BFSIterator<T>(nullptr); }
         DFSIterator<T> begin_dfs_scan() { return DFSIterator<T>(root); }
         DFSIterator<T> end_dfs_scan() { return DFSIterator<T>(nullptr); }
+
+        minHeapIterator<T> begin_min_heap() { return minHeapIterator<T>(root); }
+        minHeapIterator<T> end_min_heap() { return minHeapIterator<T>(nullptr); }
+
+        void to_min_heap()
+        {
+            if (!root)
+                return;
+            Heapify<T> heapify_instance(root);
+            heapify_instance.heapify(root);
+        }
 
         void print_tree()
         {
@@ -119,16 +147,24 @@ namespace std
 
             sf::Text text;
             text.setFont(font);
+            // if constexpr (std::is_same_v<T, double>)
+            // {
+            //     text.setString(std::to_string(node->get_value()));
+            // }
+            // else
+            // {
+            //     text.setString(node->get_value().toString());
+            // }
             text.setString(to_string(node->get_value()));
-            text.setCharacterSize(15);
+            text.setCharacterSize(20);
             text.setFillColor(sf::Color::Black);
             text.setPosition(x - 10, y - 15);
 
             window.draw(circle);
             window.draw(text);
 
-            int childY = y + 2*vGap;
-            int childX = x - (node->get_children().size() - 1) * hGap * 2;
+            int childY = y + vGap;
+            int childX = x - (node->get_children().size() - 1) * hGap / 2;
 
             for (auto child : node->get_children())
             {

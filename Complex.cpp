@@ -43,4 +43,9 @@ namespace std
         std::string str = std::to_string(complex.getRe()) + " + " + std::to_string(complex.getIm()) + "i";
         return str;
     }
+
+    bool operator<(const Complex &c1, const Complex &c2)
+    {
+        return c1.getRe() < c2.getRe()? true : false;
+    }
 }

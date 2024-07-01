@@ -17,6 +17,7 @@ namespace std{
         friend ostream &operator<<(ostream &os, const Complex &complex);
         friend bool operator==(const Complex& c1, const Complex& c2);
         friend std::string to_string(const Complex &complex);
+        friend bool operator<(const Complex &c1, const Complex &c2);
 
     private:
         double _re;
