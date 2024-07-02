@@ -8,6 +8,11 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
+/*author: elian iluk
+email: elian10119@gmail.com
+id:214787483
+*/
+
 namespace std
 {
     template <typename T, int N = 2>

@@ -5,6 +5,11 @@
 #include "doctest.h"
 #include "Complex.hpp"
 
+/*author: elian iluk
+email: elian10119@gmail.com
+id:214787483
+*/
+
 using namespace std;
 
 TEST_CASE("check node")
