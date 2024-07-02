@@ -12,9 +12,7 @@ namespace std
     public:
         Node(T value) : value(value) {}
 
-        ~Node() { delete this; }
-
-        T get_value() { return value; }
+        T get_value() const { return value; }
 
         void add_child(Node<T> *child)
         {
@@ -23,7 +21,7 @@ namespace std
 
         void print_childs() const
         {
-            std::cout << "main is:" << this->value << std::endl;
+            std::cout << "main is:" << value << std::endl;
             for (const auto &child : children)
             {
                 std::cout << "value: " << child->get_value() << std::endl;
@@ -36,6 +34,7 @@ namespace std
         }
 
         std::vector<Node<T> *> &get_children() { return children; }
+        const std::vector<Node<T> *> &get_children() const { return children; }
 
         bool operator==(const Node &other) const
         {
@@ -47,11 +46,6 @@ namespace std
             value = other.value;
             children = other.children;
         }
-
-        // bool operator!=(const Node& other) const
-        // {
-        //     return value != other.value;
-        // }
 
         friend std::ostream &operator<<(std::ostream &os, const Node<T> &node)
         {

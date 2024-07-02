@@ -16,21 +16,21 @@ namespace std
     public:
         Tree() : root(nullptr) {}
 
-        ~Tree() { if(root) remove(root); }
+        // ~Tree() { if(root) remove(root); }
 
-        void remove(Node<T> *node)
-        {
-            if(node->get_children().size() == 0)
-            {
-                delete node;
-                return;
-            }
-            for (auto child : node->get_children())
-            {
-                remove(child);
-            }
-            delete node;
-        }
+        // void remove(Node<T> *node)
+        // {
+        //     if(node->get_children().size() == 0)
+        //     {
+        //         delete node;
+        //         return;
+        //     }
+        //     for (auto child : node->get_children())
+        //     {
+        //         remove(child);
+        //     }
+        //     delete node;
+        // }
 
         void add_root(Node<T> &root)
         {
@@ -45,7 +45,8 @@ namespace std
             }
             else
             {
-                std::cout << "The parent has reached the maximum number of children" << std::endl;
+                // std::cout << "The parent has reached the maximum number of children" << std::endl;
+                 throw std::out_of_range("The parent has reached the maximum number of children");
             }
         }
 
@@ -80,6 +81,11 @@ namespace std
             }
 
             print_subtree(root, "");
+        }
+
+        Node<T> *get_root() const
+        {
+            return root;
         }
 
         void visualize_tree() const
@@ -141,23 +147,22 @@ namespace std
 
             sf::CircleShape circle(30);
             circle.setFillColor(sf::Color::Red);
-            circle.setOutlineColor(sf::Color::Black);
+            circle.setOutlineColor(sf::Color::White);
             circle.setOutlineThickness(2);
             circle.setPosition(x - 30, y - 30);
 
             sf::Text text;
             text.setFont(font);
-            // if constexpr (std::is_same_v<T, double>)
-            // {
-            //     text.setString(std::to_string(node->get_value()));
-            // }
-            // else
-            // {
-            //     text.setString(node->get_value().toString());
-            // }
-            text.setString(to_string(node->get_value()));
+            if constexpr (std::is_same<T, std::string>::value)
+            {
+                text.setString(node->get_value());
+            }
+            else
+            {
+                text.setString(to_string(node->get_value()));
+            }
             text.setCharacterSize(20);
-            text.setFillColor(sf::Color::Black);
+            text.setFillColor(sf::Color::White);
             text.setPosition(x - 10, y - 15);
 
             window.draw(circle);

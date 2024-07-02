@@ -71,10 +71,7 @@ namespace std
             }
         }
 
-        T operator*()
-        {
-            return current->get_value();
-        }
+        Node<T> &operator*() { return *current; }
 
         Node<T> *operator->()
         {
@@ -153,10 +150,7 @@ namespace std
             }
         }
 
-        T operator*()
-        {
-            return current->get_value();
-        }
+        Node<T> &operator*() { return *current; }
 
         Node<T> *operator->()
         {
@@ -237,7 +231,7 @@ namespace std
             }
         }
 
-        T &operator*()
+        T operator*()
         {
             return queue.front()->get_value();
         }

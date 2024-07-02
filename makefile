@@ -11,7 +11,9 @@ SFML_LIB_DIR := -L/path/to/sfml/lib
 # Target executable
 TARGET := tree
 # Source files
-SRCS := Demo.cpp Complex.cpp
+SRCS := Demo.cpp Complex.cpp Test.cpp TestCounter.cpp
+
+TESTS := Test.cpp TestCounter.cpp
 # Object files
 OBJS := $(SRCS:.cpp=.o)
 
@@ -21,10 +23,13 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(SFML_LIB_DIR) $(SFML_LIBS)
 
+test: $(TESTS)
+	./$(TESTS) test
+
 .cpp.o:
 	$(CXX) $(CXXFLAGS) $(SFML_INCLUDE) -c $< -o $@
 
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-.PHONY: all clean
+.PHONY: all clean test

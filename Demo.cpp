@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main()
+int main1()
 {
 
     Node<double> root_node(2.0);
@@ -32,6 +32,17 @@ int main()
     // Node<Complex> n5(Complex(1.6, 2.7));
     // Node<Complex> n6(Complex(1.7, 2.8));
 
+    // Node<string> root_node("lol");
+    // Tree<string, 3> tree;
+    // tree.add_root(root_node);
+    // Node<string> n1("jjjj2");
+    // Node<string> n2("1.3");
+    // Node<string> n3("1.4");
+    // Node<string> n4("1.5");
+    // Node<string> n5("1.6");
+    // Node<string> n6("1.7");
+    
+
     tree.add_sub_node(root_node, n1);
     tree.add_sub_node(root_node, n2);
     tree.add_sub_node(root_node, n6);
@@ -51,14 +62,14 @@ int main()
     std::cout << "In-order traversal:" << std::endl;
     for (auto it = tree.begin_in_order(); it != tree.end_in_order(); ++it)
     {
-        std::cout << (*it) << " ";
+        std::cout << (*it).get_value() << " ";
     } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
     std::cout << std::endl;
 
     std::cout << "Post-order traversal:" << std::endl;
     for (auto it = tree.begin_post_order(); it != tree.end_post_order(); ++it)
     {
-        std::cout << (*it) << " ";
+        std::cout << (*it).get_value() << " ";
     } // prints: 1.4, 1.5, 1.2, 1.6, 1.3, 1.1
     std::cout << std::endl;
 
