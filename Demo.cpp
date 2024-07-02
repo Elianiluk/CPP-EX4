@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main1()
+int main()
 {
 
     Node<double> root_node(2.0);
@@ -89,10 +89,10 @@ int main1()
 
     std::cout << "Min Heap Tree traversal:" << std::endl;
     std::cout << "Before Min Heap Tree traversal:" << std::endl;
-    std::cout << tree; // Should print the graph using GUI.
+    std::cout << tree;
     std::cout << "After Min Heap Tree traversal:" << std::endl;
     tree.to_min_heap();
-    std::cout << tree; // Should print the graph using GUI.
+    std::cout << tree;
 
     std::cout << "\nMin Heap Iteration:" << std::endl;
     for (auto it = tree.begin_min_heap(); it != tree.end_min_heap(); ++it)
@@ -101,8 +101,5 @@ int main1()
     }
     std::cout << std::endl;
 
-    // std::cout << tree << std::endl; // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
-
-    // cout << tree; // Should print the graph using GUI.
     return 0;
 }
